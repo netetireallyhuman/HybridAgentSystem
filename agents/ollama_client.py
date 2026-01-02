@@ -1,4 +1,4 @@
-# check_ollama.py
+# ollama_client.py
 import openai
 from config.llm_config import LLM_CONFIG_OLLAMA
 

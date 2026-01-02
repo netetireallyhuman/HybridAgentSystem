@@ -51,9 +51,9 @@ Agent_System
 ├─tools
 │   ├─duckduckgo_client.py
 │   ├─gemini_client.py
-│   └─[autogen_client.py]
+│   └─[openai_client.py]
 └─agents
-    └─check_ollama.py
+    └─ollama_client.py
 ```
 
 ### Einrichtung
@@ -99,13 +99,33 @@ Agent_System
 7. **Abhängigkeiten installieren:**
    ```bash
    python -m pip install --upgrade pip
-   pip install pyautogen openai google-genai ddgs
+   pip install pyautogen
+   pip install openai
+   pip install google-genai
+   pip install ddgs
+   [ggf. für openai_client.py: pip install "autogen-ext[openai]"]
    ```
 
 8. **Tests durchführen:**
-   - `agents/check_ollama.py` – Testet das lokal laufende Meta-LLM.
+   - `agents/ollama_client.py` – Testet das lokal laufende Meta-LLM.  
+      <small>Ausgabe: Ich bin Gemma, ein großes Sprachmodell, das von Google DeepMind trainiert wurde.
+      Ich bin ein Open-Weights-Modell, das öffentlich verfügbar ist.
+      Ich kann Text und Bilder als Eingabe nehmen und nur Text ausgeben.</small>
    - `tools/gemini_client.py` – Testet das online laufende Google-LLM.
+      <small>Ausgabe: AI lets computers learn from data to recognize patterns and make decisions.</small>
    - `tools/duckduckgo_client.py` – Testet die Websuche über DuckDuckGo.
+      <small>Ausgabe:  
+        ...  
+           "title": "Einwohnerbestand Berlin - Grunddaten",  
+           "href": "https://www.statistik-berlin-brandenburg.de/a-i-5-hj",  
+           "body": "Berliner Einwohnerbestand wächst weiter. Berlin zählte am 30. Juni 2025 insgesamt 3.902.645 Einwohnerinnen und Einwohner und verzeichnet gegenüber dem Vorjahr einen Zuwachs von 5.500 Personen. Die Zahl an Ausländerinnen und Ausländern war um 836 Personen auf 971.042 gesunken."  
+      ...</small>
+   - Ggf. `tools/openai_client.py` – Testet das online laufende OpenAI-LLM.
+      <small>Ausgabe: Exception has occurred: RateLimitError  
+      Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details.  
+      ...  
+      Der Fehler ist plausibel, da das Modell aktuell kostenpflichtig ist
+      und ich nichts bezahlen möchte.</small>
 
 9. **Abhängigkeiten speichern:**
    ```bash
@@ -121,7 +141,8 @@ Agent_System
 LLM_CONFIG_OLLAMA: dict[str, list[dict[str, str]] | float] = {
     "config_list": [
         {
-            "model": "deepseek-r1:7b",
+            "model": "gemma3:4b",
+            # "model": "deepseek-r1:7b",
             "base_url": "http://localhost:11434/v1",
             "api_key": "ollama",  # Pflichtfeld, wird ignoriert
         }
@@ -130,8 +151,9 @@ LLM_CONFIG_OLLAMA: dict[str, list[dict[str, str]] | float] = {
 }
 ```
 
-### check_ollama.py
+### ollama_client.py
 ```python
+# ollama_client.py
 import openai
 from config.llm_config import LLM_CONFIG_OLLAMA
 
@@ -161,6 +183,7 @@ print(response.choices[0].message.content)
 
 ### gemini_client.py
 ```python
+# gemini_client.py
 from google import genai
 
 # The client gets the API key from the environment variable `GEMINI_API_KEY`.
@@ -174,6 +197,7 @@ print(response.text) # type: ignore
 
 ### duckduckgo_client.py
 ```python
+# duckduckgo_client.py
 from ddgs import DDGS # type: ignore
 import json
 
@@ -188,10 +212,6 @@ def search_web(query: str, max_results: int = 3) -> str:
         return json.dumps(results, ensure_ascii=False, indent=2)
     except Exception as e:
         return f"Fehler bei der Suche: {str(e)}"
-
-###########
-# M A I N #
-###########
 
 if __name__ == "__main__": # nur ausführen, wenn das Programm direkt ausgeführt wird und nicht über import als Modul geladen wurde
     print("🔍 Teste Web-Suche mit DuckDuckGo...\n")
@@ -208,6 +228,20 @@ if __name__ == "__main__": # nur ausführen, wenn das Programm direkt ausgeführ
 
 ---
 
+### openai_client.py
+```python
+# openai_client.py
+# pip install pyautogen
+# pip install "autogen-ext[openai]"
+import asyncio
+from autogen_agentchat.agents import AssistantAgent
+from autogen_ext.models.openai import OpenAIChatCompletionClient
+async def main() -> None:
+    agent = AssistantAgent("assistant", OpenAIChatCompletionClient(model="gpt-4o"))
+    print(await agent.run(task="Say 'Hello World!'"))
+
+asyncio.run(main())
+```
 
 ## Modellübersicht
 
@@ -231,7 +265,3 @@ if __name__ == "__main__": # nur ausführen, wenn das Programm direkt ausgeführ
 | gemma3:1b            | 1 Mrd.            | ~1-2 GB               | Läuft fast überall                   |
 
 ---
-
-## Hinweise
-- Die Nutzung von `autogen_client.py` erfordert eine kostenpflichtige OpenAI-API.
-- Bei Fehlern wie `Error code: 429` handelt es sich um Quota-Überschreitungen.

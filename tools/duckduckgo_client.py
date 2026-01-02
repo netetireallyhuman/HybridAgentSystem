@@ -14,10 +14,6 @@ def search_web(query: str, max_results: int = 3) -> str:
     except Exception as e:
         return f"Fehler bei der Suche: {str(e)}"
 
-###########
-# M A I N #
-###########
-
 if __name__ == "__main__": # nur ausführen, wenn das Programm direkt ausgeführt wird und nicht über import als Modul geladen wurde
     print("🔍 Teste Web-Suche mit DuckDuckGo...\n")
     
