@@ -133,10 +133,10 @@ HybridAgentSystem
    ```bash
    python -m pip install --upgrade pip
    pip install pyautogen
-   pip install openai
+   pip install "autogen-ext[openai, ollama]"
+   ggf. für die Demos:
    pip install google-genai
    pip install ddgs
-   [ggf. für openai_client.py: pip install "autogen-ext[openai]"]
    ```
 
 9. **Test durchführen:**
