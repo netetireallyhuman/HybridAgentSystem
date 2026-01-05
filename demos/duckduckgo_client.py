@@ -1,4 +1,5 @@
 # duckduckgo_client.py
+# pip install ddgs
 from ddgs import DDGS # type: ignore
 import json
 
@@ -14,10 +15,10 @@ def search_web(query: str, max_results: int = 3) -> str:
     except Exception as e:
         return f"Fehler bei der Suche: {str(e)}"
 
-if __name__ == "__main__": # nur ausführen, wenn das Programm direkt ausgeführt wird und nicht über import als Modul geladen wurde
+if __name__ == "__main__": # only execute if the program is run directly and not loaded as a module via import
     print("🔍 Teste Web-Suche mit DuckDuckGo...\n")
     
-    # Beispiel-Suche
+    # Query-example
     test_query = "aktuelle Bevölkerung von Berlin 2025"
     print(f"Suche: '{test_query}'\n")
     

@@ -19,6 +19,8 @@ _private/
 _site/
 myvenv/
 
+check_single_Repo.sh
+0README.html
 Job_und_Snapshot_Pfade.txt
 devenvErrorLog.txt
 copyErrorLog.txt

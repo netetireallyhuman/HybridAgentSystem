@@ -1,3 +1,5 @@
+Stelle folgendes Script "ollama_client.py" vom veralteten Parameter-Format "llm_config.py" auf die aktuelle openai-Version um, führe es aus und analysiere das Ergebnis.
+---
 # ollama_client.py
 import openai
 from config.llm_config import LLM_CONFIG_OLLAMA
@@ -24,3 +26,17 @@ response = client.chat.completions.create(
 )
 
 print(response.choices[0].message.content)
+---
+# llm_config.py
+LLM_CONFIG_OLLAMA: dict[str, list[dict[str, str]] | float] = {
+    "config_list": [
+        {
+            "model": "gemma3:4b",
+            # "model": "deepseek-r1:7b",
+            "base_url": "http://localhost:11434/v1",
+            "api_key": "ollama",  # Pflichtfeld, wird ignoriert
+        }
+    ],
+    "temperature": 0.7,
+}
+---

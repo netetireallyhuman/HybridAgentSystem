@@ -1,0 +1,1 @@
+Schreibe ein Python-Skript, das das aktuelle Datum ausgibt, führe es aus und analysiere das Ergebnis.

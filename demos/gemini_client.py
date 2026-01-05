@@ -1,4 +1,6 @@
 # gemini_client.py
+# pip install pyautogen
+# pip install google-genai
 from google import genai
 
 # The client gets the API key from the environment variable `GEMINI_API_KEY`.
