@@ -18,6 +18,9 @@ _private/
 ..bfg-report/
 _site/
 myvenv/
+tasks/
+job.txt
+neteti_job.txt
 
 check_single_Repo.sh
 0README.html

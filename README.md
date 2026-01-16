@@ -17,7 +17,7 @@ Schließlich werden lokal Scripte ausgeführt und Web-Recherchen durchgeführt.*
 ## Inhaltsverzeichnis
 1. [Ollama KI-Client](#ollama-ki-client)
 2. [Gemini KI-Api](#gemini-ki-api)
-3. [Python KI-Projekt](#python-ki-Projekt)
+3. [Python KI-Projekt](#python-ki-projekt)
 4. [Sourcecodes](#sourcecodes)
 5. [Konversationsprotokoll](#konversationsprotokoll-python-skript-zur-datumsausgabe)
 6. [optionale Sourcecodes](#optionale-sourcecodes)
@@ -139,9 +139,10 @@ HybridAgentSystem
    pip install ddgs
    ```
 
-9. **Test durchführen:**
+9. **Test durchführen:**  
 
-   `agents/agent_team.py` – Testet das Agentensystem.
+   **"demo_job.txt"** nach **"job.txt"** kopieren und  
+   `agents/agent_team.py` – testet das Agentensystem.
 
    **Ausgaben siehe [Konversationsprotokoll](#konversationsprotokoll-python-skript-zur-datumsausgabe)**
 
