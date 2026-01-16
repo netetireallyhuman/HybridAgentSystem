@@ -1,2 +1,0 @@
-Bitte übersetzt mir das zu diesem Projekt gehörende, deutsche "README.md" ins Englische und stellt es als "README_en.md" zur Verfügung. Dabei ist wichtig, dass die Markdown-Formatierung erhalten bleibt.
-Den zu übersetzenden Markdown-Text lest bitte von "D:\Daten\private4\AI\HybridAgentSystem\README.md".
